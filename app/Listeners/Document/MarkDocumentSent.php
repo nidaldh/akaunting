@@ -18,6 +18,13 @@ class MarkDocumentSent
      */
     public function handle(Event $event)
     {
+        $invoice_items = $event->document->items->pluck('quantity', 'item_id');
+
+        foreach ($invoice_items as $item_id => $quantity) {
+            \DB::table('items')->where('id', '=', $item_id)->select('quantity')
+                ->update(['quantity' => \DB::raw('quantity -' . $quantity)]);
+        }
+
         if ($event->document->status != 'partial') {
             $event->document->status = 'sent';
 
@@ -30,7 +37,7 @@ class MarkDocumentSent
             $type_text .= $alias . '::';
         }
 
-        $type_text .= 'general.' . config('type.' . $event->document->type .'.translation.prefix');
+        $type_text .= 'general.' . config('type.' . $event->document->type . '.translation.prefix');
 
         $type = trans_choice($type_text, 1);
 

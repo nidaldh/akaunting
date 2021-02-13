@@ -80,6 +80,7 @@ return [
     'download'              => 'Download',
     'delete_confirm'        => 'Confirm delete :name :type?',
     'name'                  => 'Name',
+    'quantity'                  => 'Quantity',
     'email'                 => 'Email',
     'tax_number'            => 'Tax Number',
     'phone'                 => 'Phone',

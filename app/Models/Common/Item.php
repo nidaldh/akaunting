@@ -27,7 +27,7 @@ class Item extends Model
      *
      * @var array
      */
-    protected $fillable = ['company_id', 'name', 'description', 'sale_price', 'purchase_price', 'category_id', 'enabled'];
+    protected $fillable = ['company_id', 'name', 'quantity', 'description', 'sale_price', 'purchase_price', 'category_id', 'enabled'];
 
     /**
      * The attributes that should be cast.
@@ -45,7 +45,7 @@ class Item extends Model
      *
      * @var array
      */
-    protected $sortable = ['name', 'category', 'sale_price', 'purchase_price', 'enabled'];
+    protected $sortable = ['name', 'category', 'sale_price', 'purchase_price', 'enabled','quantity'];
 
     /**
      * @var array

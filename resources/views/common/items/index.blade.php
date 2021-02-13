@@ -34,7 +34,8 @@
                         <tr class="row table-head-line">
                             <th class="col-sm-2 col-md-1 col-lg-1 col-xl-1 d-none d-sm-block">{{ Form::bulkActionAllGroup() }}</th>
                             <th class="col-xs-4 col-sm-4 col-md-4 col-lg-3 col-xl-3">@sortablelink('name', trans('general.name'), ['filter' => 'active, visible'], ['class' => 'col-aka', 'rel' => 'nofollow'])</th>
-                            <th class="col-lg-1 col-xl-2 d-none d-lg-block">@sortablelink('category', trans_choice('general.categories', 1))</th>
+{{--                            <th class="col-lg-1 col-xl-2 d-none d-lg-block">@sortablelink('category', trans_choice('general.categories', 1))</th>--}}
+                            <th class="col-lg-1 col-xl-2 d-none d-lg-block">@sortablelink('quantity', trans_choice('general.quantity', 1))</th>
                             <th class="col-md-3 col-lg-3 col-xl-2 text-right d-none d-md-block">@sortablelink('sale_price', trans('items.sales_price'))</th>
                             <th class="col-lg-2 col-xl-2 text-right d-none d-lg-block">@sortablelink('purchase_price', trans('items.purchase_price'))</th>
                             <th class="col-xs-4 col-sm-3 col-md-2 col-lg-1 col-xl-1 text-center">@sortablelink('enabled', trans('general.enabled'))</th>
@@ -49,11 +50,14 @@
                                     {{ Form::bulkActionGroup($item->id, $item->name) }}
                                 </td>
                                 <td class="col-xs-4 col-sm-4 col-md-4 col-lg-3 col-xl-3 py-2">
-                                    <img src="{{ $item->picture ? Storage::url($item->picture->id) : asset('public/img/akaunting-logo-green.svg') }}" class="avatar image-style p-1 mr-3 item-img hidden-md col-aka" alt="{{ $item->name }}">
+{{--                                    <img src="{{ $item->picture ? Storage::url($item->picture->id) : asset('public/img/akaunting-logo-green.svg') }}" class="avatar image-style p-1 mr-3 item-img hidden-md col-aka" alt="{{ $item->name }}">--}}
                                     <a href="{{ route('items.edit', $item->id) }}">{{ $item->name }}</a>
                                 </td>
+{{--                                <td class="col-lg-1 col-xl-2 d-none d-lg-block">--}}
+{{--                                    {{ $item->category->name }}--}}
+{{--                                </td>--}}
                                 <td class="col-lg-1 col-xl-2 d-none d-lg-block">
-                                    {{ $item->category->name }}
+                                    {{ $item->quantity }}
                                 </td>
                                 <td class="col-md-3 col-lg-3 col-xl-2 text-right d-none d-md-block">
                                     {{ money($item->sale_price, setting('default.currency'), true) }}

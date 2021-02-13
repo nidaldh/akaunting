@@ -80,6 +80,7 @@ return [
     'download'              => 'تحميل',
     'delete_confirm'        => 'تأكيد حذف :name :type؟',
     'name'                  => 'الاسم',
+    'quantity'                  => 'الكمية',
     'email'                 => 'البريد الإلكتروني',
     'tax_number'            => 'رقم الضريبة',
     'phone'                 => 'رقم الهاتف',
