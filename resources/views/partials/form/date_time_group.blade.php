@@ -44,6 +44,8 @@
             @endif
         }"
 
+        locale="{{ language()->getShortCode() }}"
+
         @if (!empty($attributes['v-model']))
         @interface="form.errors.clear('{{ $attributes['v-model'] }}'); {{ $attributes['v-model'] . ' = $event' }}"
         @elseif (!empty($attributes['data-field']))
