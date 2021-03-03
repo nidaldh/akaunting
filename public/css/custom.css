@@ -655,6 +655,15 @@ table .align-items-center td span.badge {
         margin-bottom: -1rem;
     }
 
+    #header .header-body .btn,
+    .save-buttons .btn {
+        width: 100%;
+        height: 40px;
+        font-size: 0.875rem;
+        padding: 0.425rem 1.25rem;
+        margin-top: 16px;
+    }
+
     .header-button-top {
         width: 100%;
         height: 40px;
@@ -722,6 +731,14 @@ table .align-items-center td span.badge {
 
     .save-buttons {
         float: none !important;
+    }
+
+    input[type=hidden].form-control.datepicker.input {
+        display: none;
+    }
+
+    .item-columns-edit {
+        margin-left: 23px !important;
     }
 }
 /*--Xs Breakpoint Finish--*/
@@ -1481,4 +1498,70 @@ table .align-items-center td span.badge {
 
 #form-select-companies span.el-tag.el-tag--info.el-tag--small.el-tag--light {
     margin-top: -50px !important;
+}
+
+.document-item-40-px {
+    width: 40px;
+}
+
+.document-item-10 {
+    width: 10%;
+}
+
+.document-item-20 {
+    width: 20%;
+}
+
+.document-item-25 {
+    width: 25%;
+}
+
+.document-item-30 {
+    width: 30%;
+}
+
+.document-total-50 {
+    width: 50%;
+}
+
+.document-total-30 {
+    width: 30%;
+}
+
+.document-total-25 {
+    width: 25%;
+}
+
+.document-total-40-px {
+    width: 40px;
+}
+
+@media (max-width: 575.98px) {
+    table#items {
+        min-width: 700px !important ;
+    }
+
+    .document-total-50 {
+        width: 20%;
+    }
+
+    .document-total-30 {
+        width: 40%;
+    }
+    
+    .document-total-25 {
+        width: 35%;
+    }
+    
+    .document-total-40-px {
+        max-width: 1px;
+        width: 1px;
+        padding: 0;
+        margin: 0;
+    }
+
+    .item-add-new button.btn.btn-link.w-100 {
+        text-align: left;
+        padding-left: 15%;
+    }
 }
