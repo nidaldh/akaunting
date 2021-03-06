@@ -50,6 +50,20 @@ class Company extends Eloquent
         parent::__construct($attributes);
     }
 
+    /**
+     * Update the model in the database.
+     *
+     * @param  array  $attributes
+     * @param  array  $options
+     * @return bool
+     */
+    public function update(array $attributes = [], array $options = [])
+    {
+        $this->allAttributes = $attributes;
+
+        return parent::update($attributes, $options);
+    }
+
     public static function boot()
     {
         parent::boot();
@@ -317,9 +331,9 @@ class Company extends Eloquent
 
         $search = $request->get('search');
 
-        $query = user()->companies()->usingSearchString($search)->sortable($sort);
+        $query->usingSearchString($search)->sortable($sort);
 
-        if ($request->expectsJson()) {
+        if ($request->expectsJson() && $request->isNotApi()) {
             return $query->get();
         }
 
