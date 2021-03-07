@@ -95,3 +95,6 @@ _ide_helper_models.php
 modules/*
 !modules/.gitkeep
 .laravelstatsrc
+
+composer.lock
+public/vendor/*
