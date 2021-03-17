@@ -180,6 +180,8 @@ class CreateDocumentItem extends Job
 
         if (isset($this->document->status) && $this->document->status == 'sent') {
             $this->reduceItemQuantity($item_id, $this->request['quantity']);
+        } elseif (isset($this->document->status) && $this->document->status == 'received') {
+            $this->reAddQuantityForItem($item_id, $this->request['quantity']);
         }
 
         $document_item->item_taxes = false;
@@ -206,5 +208,10 @@ class CreateDocumentItem extends Job
     {
         \DB::table('items')->where('id', '=', $item_id)
             ->update(['quantity' => \DB::raw('quantity -' . (int)$quantity)]);
+    }
+
+    private function reAddQuantityForItem($item_id, $quantity){
+        \DB::table('items')->where('id', '=', $item_id)
+            ->update(['quantity' => \DB::raw('quantity +' . (int)$quantity)]);
     }
 }

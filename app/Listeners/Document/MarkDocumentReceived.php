@@ -22,6 +22,14 @@ class MarkDocumentReceived
             $event->document->status = 'received';
 
             $event->document->save();
+
+            $invoice_items = $event->document->items->pluck('quantity', 'item_id');
+
+            foreach ($invoice_items as $item_id => $quantity) {
+                \DB::table('items')->where('id', '=', $item_id)->select('quantity')
+                    ->update(['quantity' => \DB::raw('quantity +' . $quantity)]);
+            }
+
         }
 
         $type_text = '';
