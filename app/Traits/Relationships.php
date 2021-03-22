@@ -45,8 +45,25 @@ trait Relationships
             }
 
             foreach ((array) $items as $item) {
+                if (isset($model->status) && $model->status == 'sent' && $relationship == 'items') {
+                    $this->reAddQuantityForItem($item);
+                } elseif (isset($model->status) && $model->status == 'received' && $relationship == 'items') {
+                    $this->reduceItemQuantity($item);
+                }
                 $item->delete();
             }
         }
+    }
+
+    private function reAddQuantityForItem($item)
+    {
+        \DB::table('items')->where('id', '=', $item->item_id)
+            ->update(['quantity' => \DB::raw('quantity +' . (int)$item->quantity)]);
+    }
+
+    private function reduceItemQuantity($item)
+    {
+        \DB::table('items')->where('id', '=', $item->item_id)
+            ->update(['quantity' => \DB::raw('quantity -' . (int)$item->quantity)]);
     }
 }

@@ -19,7 +19,9 @@ class Dashboard
     public function index()
     {
         $contact = user()->contact;
-
+        if (!isset($contact)) {
+            return redirect()->back();
+        }
         $invoices = Document::invoice()->accrued()->where('contact_id', $contact->id)->get();
 
         $start = Date::parse(request('start', Date::today()->startOfYear()->format('Y-m-d')));

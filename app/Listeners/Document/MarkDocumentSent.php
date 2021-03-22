@@ -18,17 +18,18 @@ class MarkDocumentSent
      */
     public function handle(Event $event)
     {
-        $invoice_items = $event->document->items->pluck('quantity', 'item_id');
-
-        foreach ($invoice_items as $item_id => $quantity) {
-            \DB::table('items')->where('id', '=', $item_id)->select('quantity')
-                ->update(['quantity' => \DB::raw('quantity -' . $quantity)]);
-        }
 
         if ($event->document->status != 'partial') {
             $event->document->status = 'sent';
 
             $event->document->save();
+
+            $invoice_items = $event->document->items->pluck('quantity', 'item_id');
+
+            foreach ($invoice_items as $item_id => $quantity) {
+                \DB::table('items')->where('id', '=', $item_id)->select('quantity')
+                    ->update(['quantity' => \DB::raw('quantity -' . $quantity)]);
+            }
         }
 
         $type_text = '';

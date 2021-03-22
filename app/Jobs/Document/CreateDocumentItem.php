@@ -177,6 +177,13 @@ class CreateDocumentItem extends Job
             'total' => round($item_amount, $precision),
         ]);
 
+
+        if (isset($this->document->status) && $this->document->status == 'sent') {
+            $this->reduceItemQuantity($item_id, $this->request['quantity']);
+        } elseif (isset($this->document->status) && $this->document->status == 'received') {
+            $this->reAddQuantityForItem($item_id, $this->request['quantity']);
+        }
+
         $document_item->item_taxes = false;
         $document_item->inclusives = false;
         $document_item->compounds = false;
@@ -195,5 +202,16 @@ class CreateDocumentItem extends Job
         }
 
         return $document_item;
+    }
+
+    private function reduceItemQuantity($item_id, $quantity)
+    {
+        \DB::table('items')->where('id', '=', $item_id)
+            ->update(['quantity' => \DB::raw('quantity -' . (int)$quantity)]);
+    }
+
+    private function reAddQuantityForItem($item_id, $quantity){
+        \DB::table('items')->where('id', '=', $item_id)
+            ->update(['quantity' => \DB::raw('quantity +' . (int)$quantity)]);
     }
 }

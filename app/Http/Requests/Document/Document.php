@@ -62,7 +62,7 @@ class Document extends FormRequest
             'due_at' => 'required|date_format:Y-m-d H:i:s',
             'amount' => 'required',
             'items.*.name' => 'required|string',
-            'items.*.quantity' => 'required',
+            'items.*.quantity' => 'required|numeric|min:0|not_in:0',
             'items.*.price' => 'required|amount',
             'currency_code' => 'required|string|currency',
             'currency_rate' => 'required',
