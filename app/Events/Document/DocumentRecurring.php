@@ -2,12 +2,11 @@
 
 namespace App\Events\Document;
 
-use Illuminate\Queue\SerializesModels;
+use App\Abstracts\Event;
+use App\Models\Document\Document;
 
-class DocumentRecurring
+class DocumentRecurring extends Event
 {
-    use SerializesModels;
-
     public $document;
 
     /**
@@ -15,8 +14,8 @@ class DocumentRecurring
      *
      * @param $document
      */
-    public function __construct($document)
+    public function __construct(Document $document)
     {
-        $this->document = $document;
+        $this->document     = $document;
     }
 }
