@@ -123,4 +123,24 @@ trait Documents
 
         return $key;
     }
+
+    public function storeDocumentPdfAndGetPath($document)
+    {
+        event(new \App\Events\Document\DocumentPrinting($document));
+
+        $view = view($document->template_path, ['invoice' => $document, 'document' => $document])->render();
+        $html = mb_convert_encoding($view, 'HTML-ENTITIES', 'UTF-8');
+
+        $pdf = app('dompdf.wrapper');
+        $pdf->loadHTML($html);
+
+        $file_name = $this->getDocumentFileName($document);
+
+        $pdf_path = storage_path('app/temp/' . $file_name);
+
+        // Save the PDF file into temp folder
+        $pdf->save($pdf_path);
+
+        return $pdf_path;
+    }
 }

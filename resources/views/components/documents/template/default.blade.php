@@ -1,3 +1,18 @@
+<div class="row">
+    <div class="col-100">
+        <div class="text">
+            <h3>
+                {{ setting('invoice.title') }}
+            </h3>
+            @if (setting('invoice.subheading')) 
+            <h5>
+                {{ setting('invoice.subheading') }}
+            </h5>
+            @endif
+        </div>
+    </div>
+</div>
+
 <div class="row border-bottom-1">
     <div class="col-58">
         <div class="text company">
@@ -212,7 +227,7 @@
     </div>
 </div>
 
-<div class="row mt-9">
+<div class="row mt-9 clearfix">
     <div class="col-58">
         <div class="text company">
             @stack('notes_input_start')
