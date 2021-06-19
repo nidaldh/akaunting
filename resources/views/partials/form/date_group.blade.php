@@ -8,7 +8,6 @@
         @else
         :form-classes="[{'has-error': form.errors.get('{{ $name }}') }]"
         @endif
-
         :group_class="'{{ $group_class }}'"
 
         icon="fa fa-{{ $icon }}"
@@ -26,7 +25,7 @@
 
         :date-config="{
             wrap: true, // set wrap to true only when using 'input-group'
-            allowInput: true,
+            allowInput: false,
             @if (!empty($attributes['show-date-format']))
             altInput: true,
             altFormat: '{{ $attributes['show-date-format'] }}',
@@ -50,6 +49,14 @@
         @interface="form.errors.clear('{{ 'form.' . $attributes['data-field'] . '.' . $name }}'); {{ 'form.' . $attributes['data-field'] . '.' . $name . ' = $event' }}"
         @else
         @interface="form.errors.clear('{{ $name }}'); form.{{ $name }} = $event"
+        @endif
+
+        @if (!empty($attributes['hidden_year']))
+        hidden-year
+        @endif
+
+        @if (!empty($attributes['min-date-dynamic']))
+        :data-value-min="{{ $attributes['min-date-dynamic'] }}"
         @endif
 
         @if (!empty($attributes['change']))

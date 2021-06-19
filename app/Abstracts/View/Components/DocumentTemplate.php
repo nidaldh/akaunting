@@ -116,7 +116,7 @@ abstract class DocumentTemplate extends Base
      * @return void
      */
     public function __construct(
-        $type, $item = false, $document, $documentTemplate = '', $logo = '', $backgroundColor = '',
+        $type, $document, $item = false,  $documentTemplate = '', $logo = '', $backgroundColor = '',
         bool $hideFooter = false, bool $hideCompanyLogo = false, bool $hideCompanyDetails = false,
         bool $hideCompanyName = false, bool $hideCompanyAddress = false, bool $hideCompanyTaxNumber = false, bool $hideCompanyPhone = false, bool $hideCompanyEmail = false, bool $hideContactInfo = false,
         bool $hideContactName = false, bool $hideContactAddress = false, bool $hideContactTaxNumber = false, bool $hideContactPhone = false, bool $hideContactEmail = false,
@@ -196,9 +196,9 @@ abstract class DocumentTemplate extends Base
         $media = Media::find(setting('company.logo'));
 
         if (!empty($media)) {
-            $path = Storage::path($media->getDiskPath());
+            $path = $media->getDiskPath();
 
-            if (!Storage::exists($path)) {
+            if (Storage::missing($path)) {
                 return $logo;
             }
         } else {

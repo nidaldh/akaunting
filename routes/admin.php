@@ -39,8 +39,6 @@ Route::group(['prefix' => 'common'], function () {
     Route::get('items/{item}/disable', 'Common\Items@disable')->name('items.disable');
     Route::resource('items', 'Common\Items', ['middleware' => ['money', 'dropzone']]);
 
-    Route::resource('search', 'Common\Search');
-
     Route::post('notifications/disable', 'Common\Notifications@disable')->name('notifications.disable');
 
     Route::post('bulk-actions/{group}/{type}', 'Common\BulkActions@action')->name('bulk-actions.action');
@@ -48,7 +46,7 @@ Route::group(['prefix' => 'common'], function () {
     Route::get('reports/{report}/print', 'Common\Reports@print')->name('reports.print');
     Route::get('reports/{report}/export', 'Common\Reports@export')->name('reports.export');
     Route::get('reports/{report}/duplicate', 'Common\Reports@duplicate')->name('reports.duplicate');
-    Route::get('reports/clear', 'Common\Reports@clear')->name('reports.clear');
+    Route::get('reports/{report}/clear', 'Common\Reports@clear')->name('reports.clear');
     Route::get('reports/fields', 'Common\Reports@fields')->name('reports.fields');
     Route::resource('reports', 'Common\Reports');
 });
@@ -201,6 +199,7 @@ Route::group(['as' => 'apps.', 'prefix' => 'apps'], function () {
         Route::post('copy', 'Modules\Item@copy')->name('copy');
         Route::post('install', 'Modules\Item@install')->name('install');
 
+        Route::post('{alias}/releases', 'Modules\Item@releases')->name('app.releases');
         Route::post('{alias}/reviews', 'Modules\Item@reviews')->name('app.reviews');
         Route::get('{alias}/uninstall', 'Modules\Item@uninstall')->name('app.uninstall');
         Route::get('{alias}/enable', 'Modules\Item@enable')->name('app.enable');

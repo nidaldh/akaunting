@@ -1,5 +1,5 @@
 <template>
-  <div v-if="is_loaded">
+  <div>
     <h1 class="text-white">{{ translations.finish.title }}</h1>
     <div class="card">
       <div class="card-header wizard-header p-3">
@@ -11,6 +11,11 @@
         </el-steps>
       </div>
       <div class="card-body bg-default">
+        <div class="document-loading" v-if="pageLoad">
+          <div>
+            <i class="fas fa-spinner fa-pulse fa-7x"></i>
+          </div>
+        </div>
         <div class="row">
           <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
             <div class="content-header">
@@ -27,10 +32,10 @@
                 <div class="card">
                   <div class="card-header py-2">
                     <h4 class="ml--3 mb-0 float-left">
-                      <a :href="item.slug">{{ item.name }}</a>
+                      <a :href="route_url + '/apps/' + item.slug">{{ item.name }}</a>
                     </h4>
                   </div>
-                  <a :href="route_url + '/' + item.slug"
+                  <a :href="route_url + '/apps/' + item.slug"
                     ><img
                       v-for="(file, indis) in item.files"
                       :key="indis"
@@ -87,57 +92,63 @@
 import { Step, Steps } from "element-ui";
 
 export default {
-  name: "Finish",
-  components: {
-    [Step.name]: Step,
-    [Steps.name]: Steps,
-  },
-  created() {
-    window
-      .axios({
-        method: "PATCH",
-        url: url + "/wizard/finish",
-      })
-      .then((response) => {
-        if (response.status == "200") {
-          this.is_loaded = true;
+    name: "Finish",
+
+    components: {
+        [Step.name]: Step,
+        [Steps.name]: Steps,
+    },
+
+    props: {
+        modules: {
+            type: [Object, Array],
+        },
+
+        translations: {
+            type: [Object, Array],
+        },
+
+        pageLoad: {
+          type: [Boolean, String]
         }
-      })
-      .catch((error) => {
-        this.$notify({
-          message: this.translations.finish.error_message,
-          timeout: 1000,
-          icon: "fas fa-bell",
-          type: 0
+    },
+
+    data() {
+        return {
+            active: 3,
+            route_url: url,
+        };
+    },
+
+    created() {
+        window.axios({
+            method: "PATCH",
+            url: url + "/wizard/finish",
+        })
+        .then((response) => {
+        })
+        .catch((error) => {
+            this.$notify({
+                message: this.translations.finish.error_message,
+                timeout: 1000,
+                icon: "fas fa-bell",
+                type: 0
+            });
+
+            this.prev();
         });
-
-        this.prev();
-      });
-  },
-  props: {
-    modules: {
-      type: [Object, Array],
-    },
-    translations: {
-      type: [Object, Array],
-    }
-  },
-  data() {
-    return {
-      active: 3,
-      route_url: url,
-      is_loaded: false
-    };
-  },
-  methods: {
-    prev() {
-      if (this.active-- > 2);
-      this.$router.push("/wizard/taxes");
     },
 
-    finish() {
-      window.location.href = url;
+    methods: {
+        prev() {
+            if (this.active-- > 2);
+
+            this.$router.push("/wizard/taxes");
+        },
+
+        finish() {
+            window.location.href = url;
+        },
     },
-  },
 };
 </script>

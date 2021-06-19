@@ -123,7 +123,7 @@ return [
     'overdue'               => 'Gecikmiş',
     'partially'             => 'Kısmen',
     'partially_paid'        => 'Kısmen Ödenmiş',
-    'export'                => 'Dışa Aktar',
+    'export'                => 'Dışarı Aktar',
     'finish'                => 'Bitti',
     'wizard'                => 'Sihirbaz',
     'skip'                  => 'Geç',
@@ -160,6 +160,7 @@ return [
     'recurring_and_more'    => 'Tekrarlanan ve daha fazla..',
     'due_on'                => 'Son Tarih',
     'amount_due'            => 'Kalan Tutar',
+    'financial_year'        => 'Mali Yıl',
 
     'card' => [
         'cards'                 => 'Kart|Kartlar',

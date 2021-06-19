@@ -59,11 +59,13 @@ import AkauntingModal from './AkauntingModal';
 import AkauntingMoney from './AkauntingMoney';
 import AkauntingRadioGroup from './forms/AkauntingRadioGroup';
 import AkauntingSelect from './AkauntingSelect';
+import AkauntingSelectRemote from './AkauntingSelectRemote';
 import AkauntingDate from './AkauntingDate';
 import AkauntingRecurring from './AkauntingRecurring';
 
 import Form from './../plugins/form';
 import { Alert, ColorPicker } from 'element-ui';
+import Global from './../mixins/global';
 
 export default {
     name: 'akaunting-modal-add-new',
@@ -138,9 +140,9 @@ export default {
     },
 
     created: function () {
-        let documentClasses = document.body.classList;	
+        let documentClasses = document.body.classList;
 
-        documentClasses.add("modal-open");	
+        documentClasses.add("modal-open");
     },
 
     mounted() {
@@ -150,10 +152,11 @@ export default {
             this.component = Vue.component('add-new-component', (resolve, reject) => {
                 resolve({
                     template : '<div id="modal-add-new-form-' + form_prefix + '">' + this.message + '</div>',
-
+                    mixins: [Global],
                     components: {
                         AkauntingRadioGroup,
                         AkauntingSelect,
+                        AkauntingSelectRemote,
                         AkauntingModal,
                         AkauntingMoney,
                         AkauntingDate,

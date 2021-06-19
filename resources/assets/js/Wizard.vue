@@ -6,58 +6,43 @@
     :modules="modules.data"
     :currency_codes="currency_codes"
     :company="company"
+    :pageLoad="page_loaded"
   ></router-view>
 </template>
 
 <script>
 export default {
   name: "Wizard",
-  data: function () {
-    return {
-      page_loaded: true,
-    };
-  },
+
   created() {
-    let self = this;
+    this.translations = wizard_translations;
+    this.company = wizard_company;
+    this.currencies = wizard_currencies;
+    this.currency_codes = wizard_currency_codes;
+    this.taxes = wizard_taxes;
+    this.modules = wizard_modules;
 
-    window
-      .axios({
-        method: "GET",
-        url: url + "/wizard/data",
-      })
-      .then((response) => {
-        let data = response.data.data;
+    Object.keys(this.currency_codes).map((key) => {
+      return this.currency_codes[key];
+    });
 
-        for (let item in data) {
-          self[item] = data[item];
-        }
-
-        Object.keys(data.currency_codes).map((key) => {
-          return data.currency_codes[key];
-        });
-
-        setTimeout(
-          function () {
-            self.page_loaded = false;
-          }.bind(self),
-          800
-        );
-      });
+    this.page_loaded = false;
   },
 
   data() {
     return {
-      currencies: [],
-      currency_codes: [],
-      taxes: [],
-      modules: {},
-      company: {},
       translations: {
         company: {},
         currencies: {},
         taxes: {},
         finish: {},
       },
+      company: {},
+      currencies: [],
+      currency_codes: [],
+      taxes: [],
+      modules: {},
+      page_loaded: true
     };
   },
 };
@@ -69,6 +54,11 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 9999;
 }
 
 .document-loading div {

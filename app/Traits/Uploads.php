@@ -94,20 +94,16 @@ trait Uploads
             return false;
         }
 
-        $path = $media->basename;
+        $path = $media->getDiskPath();
 
-        if (!empty($media->directory)) {
-            $path = $media->directory . '/' . $media->basename;
-        }
-
-        if (!Storage::exists($path)) {
+        if (Storage::missing($path)) {
             return false;
         }
 
-        return Storage::path($path);
+        return $path;
     }
 
-    public function streamMedia($media, $path = '')
+    public function streamMedia($media)
     {
         return response()->streamDownload(
             function() use ($media) {
