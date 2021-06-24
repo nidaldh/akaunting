@@ -40,6 +40,8 @@ Route::group(['prefix' => 'common'], function () {
     Route::resource('items', 'Common\Items', ['middleware' => ['money', 'dropzone']]);
 
     Route::post('notifications/disable', 'Common\Notifications@disable')->name('notifications.disable');
+    Route::get('notifications/readAll', 'Common\Notifications@readAll')->name('notifications.read-all');
+    Route::resource('notifications', 'Common\Notifications');
 
     Route::post('bulk-actions/{group}/{type}', 'Common\BulkActions@action')->name('bulk-actions.action');
 
@@ -86,7 +88,6 @@ Route::group(['prefix' => 'sales'], function () {
 
     Route::get('customers/currency', 'Sales\Customers@currency');
     Route::get('customers/{customer}/duplicate', 'Sales\Customers@duplicate')->name('customers.duplicate');
-    Route::post('customers/field', 'Sales\Customers@field')->name('customers.field');
     Route::post('customers/import', 'Sales\Customers@import')->name('customers.import');
     Route::get('customers/export', 'Sales\Customers@export')->name('customers.export');
     Route::get('customers/{customer}/enable', 'Sales\Customers@enable')->name('customers.enable');

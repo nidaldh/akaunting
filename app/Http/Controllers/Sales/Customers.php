@@ -85,7 +85,7 @@ class Customers extends Controller
             $amounts['paid'] += $item->getAmountConvertedToDefault();
         });
 
-        $limit = request('limit', setting('default.list_limit', '25'));
+        $limit = (int) request('limit', setting('default.list_limit', '25'));
         $transactions = $this->paginate($transactions->sortByDesc('paid_at'), $limit);
         $invoices = $this->paginate($invoices->sortByDesc('issued_at'), $limit);
 
@@ -319,29 +319,5 @@ class Customers extends Controller
         $customer->symbol = $currency->symbol;
 
         return response()->json($customer);
-    }
-
-    public function field(BaseRequest $request)
-    {
-        $html = '';
-
-        if ($request['fields']) {
-            foreach ($request['fields'] as $field) {
-                switch ($field) {
-                    case 'password':
-                        $html .= \Form::passwordGroup('password', trans('auth.password.current'), 'key', [], 'col-md-6 password');
-                        break;
-                    case 'password_confirmation':
-                        $html .= \Form::passwordGroup('password_confirmation', trans('auth.password.current_confirm'), 'key', [], 'col-md-6 password');
-                        break;
-                }
-            }
-        }
-
-        $json = [
-            'html' => $html
-        ];
-
-        return response()->json($json);
     }
 }
