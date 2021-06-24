@@ -20,7 +20,7 @@ class Dashboard
     public function index()
     {
         $contact = user()->contact;
-
+        return redirect()->back();
         $financial_start = $this->getFinancialStart()->format('Y-m-d');
 
         // check and assign year start
