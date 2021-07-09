@@ -7,16 +7,6 @@ use App\Abstracts\Http\FormRequest;
 class Currency extends FormRequest
 {
     /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return true;
-    }
-
-    /**
      * Get the validation rules that apply to the request.
      *
      * @return array
@@ -36,7 +26,7 @@ class Currency extends FormRequest
         return [
             'name' => 'required|string',
             'code' => 'required|string|unique:currencies,NULL,' . $id . ',id,company_id,' . $company_id . ',deleted_at,NULL',
-            'rate' => 'required',
+            'rate' => 'required|gt:0',
             'enabled' => 'integer|boolean',
             'default_currency' => 'boolean',
             'symbol_first' => 'nullable|boolean',

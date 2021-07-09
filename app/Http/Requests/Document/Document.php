@@ -10,16 +10,6 @@ use Illuminate\Support\Str;
 class Document extends FormRequest
 {
     /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return true;
-    }
-
-    /**
      * Get the validation rules that apply to the request.
      *
      * @return array
@@ -64,7 +54,7 @@ class Document extends FormRequest
             'items.*.quantity' => 'required|numeric|min:0|not_in:0',
             'items.*.price' => 'required|amount',
             'currency_code' => 'required|string|currency',
-            'currency_rate' => 'required',
+            'currency_rate' => 'required|gt:0',
             'contact_id' => 'required|integer',
             'contact_name' => 'required|string',
             'category_id' => 'required|integer',
